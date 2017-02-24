@@ -1,0 +1,5 @@
+
+def index():
+    return dict(message="hello from angular")
+def test():
+    return dict(message="hello from angular test")

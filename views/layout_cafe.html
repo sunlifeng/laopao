@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="laopao">
+<head>
+<meta charset="UTF-8" />
+<title>老炮吧</title>
+<base href='/'/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="msapplication-tap-highlight" content="no">
+<link rel='subresource' href='{{=URL('static','wechat/font/iconfont.eot')}}' />
+<link rel='subresource' href='{{=URL('static','wechat/font/iconfont.svg')}}' />
+<link rel='subresource' href='{{=URL('static','wechat/font/iconfont.ttf')}}' />
+
+<link href="{{=URL('static','css/reset.css')}}" type="text/css" media="screen" rel="stylesheet" />
+<link href="{{=URL('static','wechat/font/iconfont.css')}}" type="text/css" media="screen" rel="stylesheet" />
+<link href="{{=URL('static','css/dian.css')}}" type="text/css" media="screen" rel="stylesheet" />
+<link rel='stylesheet' type="text/css" media="screen" href="{{=URL('static','css/ecoffeedian.css')}}" />
+
+
+<script src="{{=URL('static','js/angular.min.js')}}"></script>
+<script src="assets/wechat/js/angular-touch.min.js?version=0.3.2"></script>
+<script src="{{=URL('static','js/dian.js')}}"></script>
+
+<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+//配置AJAXURL
+var url_get_db='laopao/angularjs/menu.json';//获取载入数据
+var url_get_cat='laopao/angularjs/cat.json';//获取菜单分类
+var url_get_menu='laopao/angularjs/menu.json';// 获得菜单信息
+var url_push_opt="";//推送操作数据
+var url_push_remove="";//推送移除操作数据
+var url_submit="/wechat/outside/takeOrder.do";//提交购物车数据
+var url_order_pay = "/wechat/pay_outside_order.do";
+var is_waiter = false;
+var is_search_menu=false;
+var is_single = 1;
+wx.config({
+    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+    appId: "wx44e8de4bb033fbf0", // 必填，公众号的唯一标识
+    timestamp: 1486513971, // 必填，生成签名的时间戳
+    nonceStr: "d8ff6bdb-65db-40ac-b3da-7b4a969adfd0", // 必填，生成签名的随机串
+    signature: "3B51B0929CD188690C2C454F0DD062A5FC337D51",// 必填，签名，见附录1
+    jsApiList: ["closeWindow"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+});
+// function dwrBind() {
+//     DwrBind.onPageLoad('wechat10167559');
+// }
+function updateCart(msg) {
+    var message = eval('(' + msg + ')');
+    if(message.type==1)
+        dsfunc.set_cart(message.userId,message.productId,message.propertyId,message.sremark,message.amount,'push',message.userImg);
+    else if(message.type==2)
+        dsfunc.set_cart_remove(message.productId,message.propertyId,message.sremark,'push');
+}
+function refreshPage(msg) {
+    alert(msg);
+    wx.closeWindow();
+}
+</script>
+</head>
+<body ng-controller="pao"  onload="">
+<div>
+    {{include}}
+</div>
+<div class="dian" id="dian">
+    <div class="loading" ng-hide="glb_loading==0"><img src="{{=URL('static','images/loading_wechat.gif')}}"></div>
+    <!--属性页-->
+    <div class="panel panel_muti" ng-show="ishide_muti==0">
+        <div class="box_attr">
+         <div class="box_tit">
+            <div class="left">
+              <div class="text">请选择</div>
+            </div>
+            <div class="right">
+              <i class="iconfont icon-close" ng-click="hide_muti()"></i>
+            </div>
+          </div> 
+          <div class="contain">
+            <div class="group" ng-if="panel_muti_show.mutiMinus">
+              <div class="tit">删除哪个?</div>
+              <div class="list_column">
+                <div class="wrap_btn">
+                  <a href="javascript:;" class="btn" ng-repeat="item in panel_mutiMinus_list" ng-click="mutiopt_muti_minus(glb_user,item.menu.id,item.attr,item.sremark)">
+                    <span class="icon icon_circle">
+                      <i class="my-circle" ng-show="item._active"></i>
+                    </span>
+                    <span class="text"><span ng-bind="item.name"></span><span ng-bind="item.sremark"></span></span>
+                    <span class="num">已选&nbsp;<span ng-bind="item._countNum"></span></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="group" ng-if="panel_muti_show.attr">
+              <div class="tit">要哪种呢?</div>
+              <div class="list_column">
+                <div class="wrap_btn">
+                  <a href="javascript:;" class="btn" ng-repeat="item in panel_muti_attr" ng-click="mutiopt_attr(item.id)">
+                    <span class="icon icon_circle">
+                      <i class="my-circle" ng-show="item._active"></i>
+                    </span>
+                    <span class="text" ng-bind="item.name"></span>
+                    <span class="line">|</span>
+                    <span class="txt">¥<span ng-bind="item.rmb"></span></span>
+                    <span class="num">已选&nbsp;<span ng-bind="item._countNum"></span></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <a href="javascript:;" class="btn-ban" ng-click="switch_muti_more()" ng-show="panel_muti_attr_opt=='add'">更多需求</a>
+            <div ng-show="panel_muti_show.more">
+            <div class="group" ng-repeat="item in panel_muti_list" ng-if="panel_muti_show.muti">
+              <div class="tit" ng-bind="item.name"></div>
+              <div class="list">
+                <div class="wrap_btn" ng-repeat="it in item.list">
+                  <a href="javascript:;" class="btn" ng-click="mutiopt_muti(item.type,item.list,$index)">
+                    <span class="icon" ng-if="item.type=='check'">
+                      <i class="iconfont icon-right" ng-show="it._active"></i>
+                    </span>
+                    <span class="icon icon_circle" ng-if="item.type=='radio'">
+                      <i class="my-circle" ng-show="it._active"></i>
+                    </span>
+                    <span class="text" ng-bind="it.text"></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="group" ng-show="panel_muti_show.muti">
+              <div class="tit tit_1">您还有其他要求么?</div>
+              <div class="box_ipt">
+                <input type="text" ng-model="panel_muti_sremark_more">
+              </div>
+            </div>
+            </div>
+            <div class="group" ng-if="panel_muti_show.large">
+              <div class="tit tit_1">数量</div>
+              <div class="box_ipt">
+                <div class="icon" ng-click="mutiopt_count_empty()">
+                  <i class="iconfont icon-tuige"></i>
+                </div>
+                <span class="count" ng-bind="panel_muti_count"></span>
+              </div>
+              <div class="list list_center">
+                <div class="wrap_text" ng-repeat="item in panel_muti_count_case">
+                  <a href="javascript:;" class="btn" ng-click="mutiopt_count_deal(item)">
+                    <span class="text">+{[{item}]}</span>
+                  </a>
+                </div>
+                <div class="wrap_text" ng-repeat="item in panel_muti_count_case">
+                  <a href="javascript:;" class="btn" ng-click="mutiopt_count_deal(item*-1)">
+                    <span class="text">-{[{item}]}</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="foot_pop">
+            <a href="javascript:;" class="btn_center bg_warning" ng-click="mutiopt_submit()">确认</a>
+          </div>
+        </div>
+        <div class="mask"></div>
+    </div>
+    <div class="panel panel_detail" ng-if="ishide_detail==0">
+        <div class="content">
+            <div class="tumb"><img ng-src="{{=URL("default","download")}}/{[{panel_detail_data.image}]}" ></div>
+            <div class="info">
+                <div class="name" ng-bind="panel_detail_data.name"></div>
+                <div class="price"><span class="yuan">¥</span><span class="n" ng-bind="panel_detail_data.price"></span></div>
+                <div class="tags">
+                    <span class="t">共售<span ng-bind="panel_detail_data.count"></span></span>
+                    <span class="t" ng-repeat="item_tag in panel_detail_data.tags" ng-bind="item_tag.name"></span>
+                </div>
+                <div class="intro" ng-bind="panel_detail_data.intro"></div>
+            </div>
+            <a href="javascript:;" class="btn_cancel" ng-click="hide_detail()">返&nbsp;&nbsp;回</a>
+        </div>
+        <div class="mask"></div>
+    </div>
+    <div class="topbar">
+        <div class="item" ng-repeat="item in tag_list track by $index">
+            <a href="javascript:;" data-state="{[{item._state}]}" ng-bind="item.name" ng-click="list_menu_tag(item.tagId)"></a>
+            <div class="line" ng-if="$index==3">
+                <span class="lf"></span>
+                <span class="rt"></span>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="cat_list" id="cat_list" ng-show="glb_show_cat==1">
+            <div class="cat_list_wrap">
+                <div class="item" ng-repeat="item in cat_list"><a href="javascript:;" data-state="{[{item._state}]}" ng-click="list_menu_cat(item.id)"><span ng-bind="item.name"></span><span class="count" ng-show="item._count>0" ng-bind="item._count"></span></a></div>
+            </div>
+        </div>
+        <div ng-class="{1:'menu_list',0:'menu_list menu_list_big'}[glb_show_cat]" id="menu_list">
+            <div class="menu_list_wrap" id="menu_list_wrap">
+            <div class="item" ng-repeat="item in menu_list" ng-if="item._isShow==1">
+                <div class="tumb"><img ng-src="{{=URL("default","download")}}/{[{item.image}]}" ng-click="show_detail(item.id)"></div>
+                <div class="content">
+                    <div class="name"><span ng-bind="item.name"></span><span class="unit" ng-if="item.unitName!=''">/<span ng-bind="item.unitName"></span></span></div>
+                    <div class="tags">
+                        <span class="t" ng-if="glb_show_cat==0">共售<span ng-bind="item.count"></span></span>
+                        <span class="t" ng-repeat="item_tag in item.tag" ng-if="item.isMember==0" ng-bind="item_tag.name"></span>
+                        <span class="t t_red" ng-if="item.isMember">仅限会员</span>
+                    </div>
+                    <div class="more">
+                        <div class="opt">
+                            <span class="text" ng-show="item._isSupply==1 && ((item.disabled || item.isSoldOut)==1)">售罄</span>
+                            <span class="text" ng-show="item._isSupply==1 &&item.isWeigh==1">称重菜品</span>
+                            <span class="text" ng-show="item._isSupply==0">
+                                <span ng-bind="item.saleTime.startTime"></span>-
+                                <span ng-bind="item.saleTime.endTime"></span>
+                            </span>
+                            <span ng-show="item.disabled==0 &&  item.isSoldOut==0 &&  item.isWeigh==0 && item._isSupply==1"><a href="javascript:;" ng-click="menu_set_muti(item.id,-1)" class="btn btn_minus" ng-show="item._countNum>0"><i class="iconfont icon-minus"></i>
+                            </a><span class="count" ng-bind="item._countNum" ng-show="item._countNum>0">
+                            </span><a href="javascript:;" ng-click="menu_set_muti(item.id,1)" class="btn btn_add"><i class="iconfont icon-add"></i></a></span>
+                        </div>
+                        <div class="price">
+                            <span class="yuan">¥</span>
+                            <span class="n" ng-bind="item.rmb"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+            </div>
+        </div>
+    </div>
+    <div class="footbar">
+        <div class="result">
+            <span class="count_total" ng-bind="glb_count_total" ng-click="show_cart()"></span>
+            <span class="price_total" ng-click="show_cart()">
+                <span class="yuan">￥</span>
+                <span class="n" ng-bind="glb_price_total"></span>
+            </span>
+        </div>
+        <div class="opt">
+            <a class="btn btn_gray" href="/wechat/outside_orders.do">本桌订单</a>
+            <a class="btn" href="javascript:;" ng-click="show_cart()">选好了</a>
+        </div>
+    </div>
+    <div class="panel panel_cart" ng-if="ishide_cart==0">
+        <div class="content">
+            <div class="cart_hd">
+                <div class="title">本桌点的菜品</div>
+                <a href="javascript:;" class="btn" ng-click="hide_cart()">继续点餐</a>
+            </div>
+            <div class="cart_bd">
+                <div class="item" ng-repeat="item in cart_list">
+                    <div class="tumb"><img ng-src="{[{item.menu.pic}]}_240.jpg"></div>
+                    <div class="info">
+                        <div class="name" ng-bind="item.name"></div>
+                        <span class="t" style="font-size:14px;margin-left:5px;color:#999;">共售<span ng-bind="item.menu.count"></span></span>
+                        <div class="more">
+                            <div class="price">
+                                <span class="yuan">¥</span>
+                                <span class="n" ng-bind="item.rmb"></span>
+                                <span class="total_count"> x{[{item._countNum}]}</span>
+                            </div>
+                        </div>
+                        <div class="tags">
+                            <span class="t" ng-repeat="item_tag in item.menu.tag" ng-bind="item_tag.name" data-tagid="{[{item_tag.id}]}" ></span>
+                            <div class="opt">
+                                <a href="javascript:;" ng-click="set_cart_remove(item.menu.id,item.attr,item.sremark,'cart')" class="btn btn_remove"><i class="iconfont icon-remove"></i></a>
+                                <a href="javascript:;" ng-click="set_cart(glb_user,item.menu.id,item.attr,item.sremark,-1,'cart')" class="btn btn_minus"><i class="iconfont icon-minus"></i></a>
+                                <span class="count"></span>
+                                <a href="javascript:;" ng-click="set_cart(glb_user,item.menu.id,item.attr,item.sremark,1,'cart')" class="btn btn_add"><i class="iconfont icon-add"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sremark" ng-if="item.sremark" ng-bind="item.sremark"></div>
+                    <div class="friend">
+                        <div class="list">
+                            <div class="it" ng-repeat="item_friend in item.user">
+                                <img ng-src="{[{item_friend.img}]}">
+                                <span class="count" ng-bind="item_friend.count"></span>
+                            </div>
+                        </div>
+                        <!--<div class="item_count_total">=<span ng-bind="item._countNum"></span></div>-->
+                    </div>
+                </div>
+            </div>
+            <div class="cart_ft footbar">
+                <div class="result">
+                    <span class="count_total" ng-bind="glb_count_total"></span>
+                    <span class="price_total">
+                        <span class="yuan">￥</span>
+                        <span class="n" ng-bind="glb_price_total"></span>
+                    </span>
+                </div>
+                <div class="opt">
+                    <a class="btn" href="javascript:;" ng-click="dian_submit()">去买单</a>
+                </div>
+            </div>
+        </div>
+        <div class="mask" ng-click="hide_cart()"></div>
+    </div>
+    <div class="box_msg" ng-if="ishide_msg==0"><span class="text" ng-bind="boxmsg_text"></span><br/><span class="name" ng-bind="boxmsg_name"></span></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+@charset "utf-8";
+/* CSS Document */
+.dian .cat_list{background:#053039; background-image:none !important;}
+.dian .cat_list .item a{margin-left:0;}
+.dian .cat_list .item a[data-state="1"]{background:#dcdddd; border-left:0; color:#053039;}
+.dian .cat_list .count{background:#053039;}
+.dian .cat_list .item a[data-state="1"] .count{background:#053039;}
+.dian .topbar{background:#053039;}
+.dian .topbar .item a[data-state="1"]{background:#053039; border-radius:4px; border:1px solid #fff; width:60%; box-shadow:none;}
+.dian .topbar .item .line{display:none;}
+.dian .menu_list .item{background:#dcdddd;}
+.dian .menu_list .item:nth-child(2n){background:#c9caca;}
+.dian .menu_list .item .content .opt .btn{background:none; border:1px solid #053039; color:#053039;}
+.dian .menu_list .item .content .price{color:#7a1c32;}
+.dian .menu_list .item .content .tags .t{background:#053039; border:1px solid #053039; color:#FFF;}
+.dian .menu_list .item .content .tags .t_red{background:#7a1c32; border-color:#7a1c32;}
+
+.dian .panel .mask{background:rgba(0,0,0,0.8);}
+
+.dian .menu_list .item .content .opt .text{color:#7a1c32;}
+
+.dian .panel_attr .content .title{color:#7b1a31;}
+.dian .panel_attr .content .item{background:#7b1a31 !important;}
+.dian .panel_attr .content .btn_cancel{background:#c9caca !important;}
+
+.dian .footbar{background:rgba(0,0,0,0.6);}
+.dian .footbar .result .count_total{border-color:#fff; color:#fff;}
+.dian .footbar .opt .btn{background:#053039 !important;}
+
+.dian .panel_cart .content{background:#011f25;}
+.dian .panel_cart .content .cart_hd{background:#011f25;}
+.dian .panel_cart .content .cart_hd .btn{background:#7a1c32;}
+.dian .panel_cart .content .cart_bd .item{background:none; border-radius:0; border-bottom:0 !important;}
+.dian .panel_cart .content .cart_bd .item .friend{border-top:0; background:#67797c; padding:0 4px 4px 4px;}
+.dian .panel_cart .content .cart_bd .item .friend .it img{border-radius:0 !important;}
+.dian .panel_cart .content .cart_bd .item .friend .it .count{background:#053039 !important;}
+.dian .panel_cart .content .cart_bd .item .friend .item_count_total{color:#fff;}
+.dian .panel_cart .content .cart_bd .item .info .name{color:#fff;}
+.dian .panel_cart .content .cart_bd .item .info .price{color:#fff;}
+.dian .panel_cart .content .cart_bd .item .info .opt .btn{background:none; border:1px solid #fff; color:#fff;}
+
+.dian .panel_attr .content .item{background: #053039;}
+.dian .panel_attr .content .item:nth-child(2){background: #053039;}
+

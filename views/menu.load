@@ -1,0 +1,37 @@
+      {{=MENU(response.menu,_class="sidebar-menu",ul_class="treeview",li_class="treeview")}}
+
+      <ul class="sidebar-menu">
+        <li class="header">菜单</li>
+        <li class="treeview">
+      {{=LOAD('default','cart/show',vars=dict(editable=request.function!='pay'),ajax=True,target='cart')}}
+      {{if request.function=='showroom':}}
+      <a href="{{=URL('checkout')}}" class="btn btn-primary">付款</a>
+      {{pass}}
+      </li>
+      </ul>
+      <ul class="sidebar-menu {{=hidden}}">
+        <li class="header">菜单</li>
+
+        <li class="treeview">
+          {{=sidebar_menu_item('Dogs', icon='circle-o')}}
+          <ul class="treeview-menu">
+            {{=sidebar_menu_item('View Dogs', URL('dog', 'list'), icon='list')}}
+            {{=sidebar_menu_item('Create Dog', URL('dog', 'create'), icon='pencil-square-o')}}
+          </ul>
+        </li>
+        <li class="treeview">
+          {{=sidebar_menu_item('Dog Lovers', icon='circle-o')}}
+          <ul class="treeview-menu">
+            {{=sidebar_menu_item('View Dog Lovers', URL('person', 'list'), icon='list')}}
+            {{=sidebar_menu_item('Create Dog Lover', URL('person', 'create'), icon='pencil-square-o')}}
+          </ul>
+        </li>
+        <li class="treeview">
+          {{=sidebar_menu_item('Dog Owner', icon='circle-o')}}
+          <ul class="treeview-menu">
+            {{=sidebar_menu_item('View Dog Owners', URL('dog_owner', 'list'), icon='list')}}
+            {{=sidebar_menu_item('Create Dog Owner', URL('dog_owner', 'create'), icon='pencil-square-o')}}
+          </ul>
+        </li>
+      </ul>
+
