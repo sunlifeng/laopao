@@ -5,9 +5,18 @@ import gluon.contrib.simplejson
 def index():
     return dict(message="hello from angular")
 
+def takeOrder():
+    new_recipe = gluon.contrib.simplejson.loads(request.body.read())
+    return new_recipe
+
+def openuser():
+    return dict()
+
+def historyorder():
+    return dict()
+
 def menu():
     rows = db(db.product).select().as_list()
-
     #return dict(product_list=gluon.contrib.simplejson.dumps(rows))
     return to_json(rows)
 

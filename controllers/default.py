@@ -12,6 +12,7 @@ def manage_inventory():
 
 def index():    
     redirect(URL('showroom'))
+
 def test():
     return locals()
 
@@ -158,3 +159,6 @@ def download():
 
 def call():
     return service()
+
+def data():
+    return dict(form=crud())

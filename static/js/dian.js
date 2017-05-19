@@ -863,10 +863,12 @@ dianshi.controller('pao',function($scope,$http,dsfunc,$timeout){
                     item_cart.userImg=user_img;
                 }else{
                     item_cart.userId=ds_data.user;
-                    item_cart.userImg=ds_data.user_img;
+                    item_cart.image=ds_data.image;
                 };
                 item_cart.productId=parseInt(menu_id);
                 item_cart.cat=item_menu.categoryId;
+                item_cart.image=item_menu.image;
+
                 item_cart.propertyId=parseInt(attr_id);
                 item_cart.tasteNotes = sremark;
                 item_cart.amount=count;
@@ -938,7 +940,7 @@ dianshi.controller('pao',function($scope,$http,dsfunc,$timeout){
                 name_remove=$scope.menu_list[i].name;
                 if($scope.menu_list[i].attr.length==0){
                     count_remove=$scope.menu_list[i]._countNum;
-                    price_remove=$scope.menu_list[i].price;
+                    price_remove=$scope.menu_list[i].unit_price;
                     $scope.menu_list[i]._countNum=0;
                 }else{
                     for(n in $scope.menu_list[i].attr){
@@ -963,7 +965,7 @@ dianshi.controller('pao',function($scope,$http,dsfunc,$timeout){
             }
         }
         $scope.glb_count_total=$scope.glb_count_total*1-count_remove_all*1;
-        $scope.glb_price_total=(($scope.glb_price_total*100-price_remove*count_remove_all)/100);
+        $scope.glb_price_total=(($scope.glb_price_total*100-price_remove*100*count_remove_all)/100);
         $scope.glb_price_fixed=$scope.glb_price_total.toFixed(2);
 
         for(i in $scope.cat_list){

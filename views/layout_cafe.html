@@ -212,10 +212,10 @@
             </div>
             <div class="cart_bd">
                 <div class="item" ng-repeat="item in cart_list">
-                    <div class="tumb"><img ng-src="{[{item.menu.pic}]}_240.jpg"></div>
+                    <div class="tumb"><img ng-src="{{=URL("default","download")}}/{[{item.menu.image}]}"></div>
                     <div class="info">
-                        <div class="name" ng-bind="item.name"></div>
-                        <span class="t" style="font-size:14px;margin-left:5px;color:#999;">共售<span ng-bind="item.menu.count"></span></span>
+                        <div class="name" ng-bind="item.menu.name"></div>
+                       <span class="t" style="font-size:14px;margin-left:5px;color:#999;">共售<span ng-bind="item.menu.count"></span></span>
                         <div class="more">
                             <div class="price">
                                 <span class="yuan">¥</span>
