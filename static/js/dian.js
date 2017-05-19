@@ -868,6 +868,7 @@ dianshi.controller('pao',function($scope,$http,dsfunc,$timeout){
                 item_cart.productId=parseInt(menu_id);
                 item_cart.cat=item_menu.categoryId;
                 item_cart.image=item_menu.image;
+
                 item_cart.propertyId=parseInt(attr_id);
                 item_cart.tasteNotes = sremark;
                 item_cart.amount=count;

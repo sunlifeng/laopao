@@ -55,9 +55,10 @@ function refreshPage(msg) {
     alert(msg);
     wx.closeWindow();
 }
+//onload="dwr.engine.setActiveReverseAjax(true);dwr.engine.setNotifyServerOnPageUnload(true);dwrBind();
 </script>
 </head>
-<body ng-controller="pao"  onload="dwr.engine.setActiveReverseAjax(true);dwr.engine.setNotifyServerOnPageUnload(true);dwrBind();">
+<body ng-controller="pao"  onload="">
 <div>
     {{include}}
 </div>
@@ -246,7 +247,7 @@ function refreshPage(msg) {
                     <div class="tumb"><img ng-src="{{=URL("default","download")}}/{[{item.menu.image}]}"></div>
                     <div class="info">
                         <div class="name" ng-bind="item.menu.name"></div>
-                        <span class="t" style="font-size:14px;margin-left:5px;color:#999;">共售<span ng-bind="item.menu.count"></span></span>
+                       <span class="t" style="font-size:14px;margin-left:5px;color:#999;">共售<span ng-bind="item.menu.count"></span></span>
                         <div class="more">
                             <div class="price">
                                 <span class="yuan">¥</span>
