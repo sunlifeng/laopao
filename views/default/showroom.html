@@ -1,0 +1,60 @@
+{{left_sidebar_enabled,right_sidebar_enabled=True,('message' in globals())}}
+{{extend 'layout_starter.html'}}
+{{#=response.toolbar()}}
+
+{{block left_sidebar}}
+ {{#=MENU(response.menu, _class='mobile-menu nav' if is_mobile else 'nav',mobile=is_mobile,li_class='dropdown',ul_class='dropdown-menu')}}
+	    <form method="get" action="{{=URL('default','showroom')}}" class="form-search">
+	      <div class="input-append">
+		<input type="text" class="span2 search-query" name="q" value="{{=request.vars.q or ''}}">
+		<button type="submit" class="btn">Search</button>
+	      </div>
+	    </form>
+	    <h2>购物车</h2>
+	    {{=LOAD('default','cart/show',vars=dict(editable=request.function!='pay'),ajax=True,target='cart')}}
+	    {{if request.function=='showroom':}}
+	    <a href="{{=URL('checkout')}}" class="btn btn-primary">付款</a>
+	    {{pass}}
+{{end}}
+
+
+
+{{for row in rows:}}
+<div class="well">
+  <table>
+    <tr>
+      <td width="200px">
+	<img src="{{=URL('download',args=row.image)}}" width="200px"/>
+      </td>
+      <td>
+	<h2>{{=row.name}}, ￥{{=row.unit_price}}</h2>
+	<form action="{{=URL('cart/add')}}" data-target="#cart">
+	  <div class="input-append">
+	    {{=SELECT(*[OPTION(r.detail,_value=r.id) for r in row.inventory],**dict(_name='id'))}}
+	    <input type="submit" value="加入购物车"/>
+	  </div>
+	</form>
+	{{=MARKMIN(row.description_short)}}
+	{{if row.description_long:}}
+	<div class="hidden toggable">
+	  {{=MARKMIN(row.description_long)}}
+	</div>
+	{{pass}}
+      </td>
+    </tr>
+  </table>
+</div>
+{{pass}}
+
+{{vars=request.vars}}
+{{vars.update({'page':page-1})}}
+{{if page>0:}}<a class="btn" href="{{=URL(args=request.args,vars=vars)}}">Previous</a>{{pass}}
+{{vars.update({'page':page+1})}}
+{{if len(rows)==20:}}<a class="btn" href="{{=URL(args=request.args,vars=vars)}}">Next</a>{{pass}}
+
+<script>
+jQuery(function(){
+  jQuery('[data-target]').each(function(){var t=jQuery(this); t.submit(function(){ jQuery.post(t.attr('action'),t.serialize(),function(data){jQuery(t.attr('data-target')).html(data);}); return false; }); });
+  jQuery('.toggable').each(function(){var t=jQuery(this); jQuery('<button class="btn btn-info">More</button>').insertBefore(t).click(function(){t.slideToggle();});});
+});
+</script>
