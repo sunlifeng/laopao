@@ -26,8 +26,11 @@ var hide_cart = 1;
 var cart_source = false;
 var is_search_menu = false;
 var auto_meal_fee = 0;
+
+
 //var dianshi=angular.module('laopao',['ngTouch']);
 var dianshi=angular.module('laopao',[]);
+
 dianshi.config(function($interpolateProvider) {
     //allow Web2py views and Angular to co-exist
     $interpolateProvider.startSymbol('{[{');
@@ -50,6 +53,7 @@ dianshi.controller('pao',function($scope,$http,dsfunc,$timeout){
     $scope.glb_submit_status=1;//去买单按钮状态
     $scope.glb_is_search = false;//是否显示搜索框
     $scope.glb_str_search = "";//菜品检索字符串
+    $scope.glb_table_id=table_id;//卓號
     //初始化panel的显示状态
     $scope.ishide_muti = 1;// ***muti***
     $scope.ishide_cart=hide_cart;

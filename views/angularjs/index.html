@@ -1,11 +1,16 @@
 {{extend 'layout_cafe.html'}}
 
+
 {{block script_header}}
 <script>
+
 //配置AJAXURL
-var url_get_db='laopao/angularjs/menu.json';//获取载入数据
-var url_get_cat='laopao/angularjs/cat.json';//获取菜单分类
-var url_get_menu='laopao/angularjs/menu.json';// 获得菜单信息
+var url_base='{{=request.application+"/"+request.controller+"/"}}';
+var url_get_db=url_base+'menu.json';//获取载入数据
+var url_get_cat=url_base+'cat.json';//获取菜单分类
+var url_get_menu=url_base+'menu.json';// 获得菜单信息
+var table_id='{{=table_id}}';
+//console.log (url_get_db);
 var url_push_opt="";//推送操作数据
 var url_push_remove="";//推送移除操作数据
 var url_submit="/wechat/outside/takeOrder.do";//提交购物车数据
@@ -13,6 +18,7 @@ var url_order_pay = "/wechat/pay_outside_order.do";
 var is_waiter = false;
 var is_search_menu=false;
 var is_single = 1;
+
 
 wx.config({
     debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。

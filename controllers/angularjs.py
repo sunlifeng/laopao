@@ -3,7 +3,8 @@
 import gluon.contrib.simplejson
 
 def index():
-    return dict(message="hello from angular")
+    table_id=request.vars.table_id
+    return dict(table_id=table_id,message="hello from angular")
 
 def takeOrder():
     new_recipe = gluon.contrib.simplejson.loads(request.body.read())
