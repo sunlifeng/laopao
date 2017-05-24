@@ -1,8 +1,11 @@
 # coding: utf8
 
 import gluon.contrib.simplejson
+from weixin.client import WeixinAPI
+from weixin.oauth2 import OAuth2AuthExchangeError
 
 def index():
+    
     table_id=request.vars.table_id
     return dict(table_id=table_id,message="hello from angular")
 

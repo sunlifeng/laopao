@@ -6,8 +6,14 @@ session.cart = session.cart or {}
 auth.settings.extra_fields['auth_user'] = [
     Field('is_manager','boolean',default=True)
 ]
-auth.define_tables(username=False, signature=False)
+auth.define_tables(username=True, signature=False)
 if auth.user: auth.user.is_manager = True
+
+
+db.define_table(
+    'custom',
+    Field('openid'),
+    Field('name',required=True))
 
 db.define_table(
     'product',
@@ -47,6 +53,7 @@ db.define_table(
 
 db.define_table(
     'cart_order',
+    Field('custom','reference custom'),
     Field('billing_to',requires=INE),
     Field('billing_address',requires=INE),
     Field('billing_city',requires=INE),
@@ -60,7 +67,7 @@ db.define_table(
     Field('shipping_country',requires=INE),
     Field('shipping_phone'),
     Field('shipping_instructions','text'),
-    Field('shipping_type',requires=IS_IN_SET(('USPS','UPS','FEDEX'))),
+    Field('shipping_type',requires=IS_IN_SET(('inshop','ele','meituan'))),
     Field('total','double',readable=False,writable=False),
     Field('total_discount','double',readable=False,writable=False),
     Field('total_tax','double',readable=False,writable=False),

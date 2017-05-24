@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 @auth.requires_membership('manager')
-def manage_products():
+def manage_products():     
     grid = SQLFORM.grid(db.product)
     return locals()
 
@@ -10,8 +10,21 @@ def manage_inventory():
     grid = SQLFORM.grid(db.inventory)
     return locals()
 
+@auth.requires_membership('manager')
+def manage_user():
+    grid = SQLFORM.grid(db.auth_user)
+    return locals()
+
+@auth.requires_membership('manager')
+def manage_group():
+    grid = SQLFORM.grid(db.auth_group)
+    return locals()
+
+@auth.requires_membership('manager')
 def index():    
-    redirect(URL('showroom'))
+    #redirect(URL('showroom'))
+    return locals()
+
 
 def test():
     return locals()
