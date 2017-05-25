@@ -28,7 +28,7 @@ def manage_custom():
     grid = SQLFORM.grid(db.custom)
     return locals()
 def manage_desk():
-    grid = SQLFORM.grid(db.desk)
+    grid = SQLFORM.grid(db.desk)    
     return locals()    
     
 @auth.requires_membership('manager')
@@ -37,35 +37,10 @@ def index():
     return locals()
 
 
+def qrcode():
+    qrcode_url=request.args.qrcode_url    
+    return dict(qrcode_url=qrcode_url)
 
-
-def new_post():
-    from elaphe import barcode
-    from gluon.contenttype import contenttype
-    form = SQLFORM.factory(
-        Field('message', requires=IS_NOT_EMPTY())
-      )
-
-    if form.accepts(request.vars, formname=None):
-        msg=request.vars.message       
-        return IMG(_src=URL('get_image', vars={'message':msg})).xml()
-
-    elif form.errors:
-        return dict(form=form)
-
-def get_image():
-    from elaphe import barcode
-    from gluon.contenttype import contenttype
-    import StringIO
-    msg="request.vars.message"
-    output = StringIO.StringIO()
-    qrcode=barcode('qrcode', msg, options=dict(version=9, eclevel='M'), margin=10, data_mode='16bits')
-    #qrcode.save(output)
-    img_tag = '<img src="data:image/png;base64,%s">' % output.getvalue().encode('base64').replace('\n', '')
-    #response.headers['Content-Type']="image/png"        
-    #qrcode.save(response.body, "PNG")
-
-    return img_tag
 
 def test():
     return locals()
