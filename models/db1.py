@@ -10,6 +10,13 @@ auth.define_tables(username=True, signature=False)
 if auth.user: auth.user.is_manager = True
 
 
+
+db.define_table(
+    'desk',
+    Field('deskid','integer'),
+    Field('name',required=True)
+    )
+
 db.define_table(
     'custom',
     Field('openid'),

@@ -10,8 +10,8 @@ from weixin.client import WeixinAPI
 from weixin.oauth2 import OAuth2AuthExchangeError
 
 def index():
-    APP_ID = 'test'
-    APP_SECRET = 'test'
+    APP_ID = 'wxb4489b6db9018223'
+    APP_SECRET = '8d2e1e250ae33b0160e89705a53e9251'
     REDIRECT_URI = 'http://localhost.com/authorization'
     scope = ("snsapi_base", )
     code="temp"
@@ -20,9 +20,10 @@ def index():
                       redirect_uri=REDIRECT_URI)
 
     authorize_url = api.get_authorize_url(scope=scope)
-    
+
     access_token = api.exchange_code_for_access_token(code=code)
     api = WeixinMpAPI(access_token=access_token)
+
     user = api.user(openid="openid")
 
     table_id=request.vars.table_id
@@ -32,6 +33,8 @@ def index():
 def pay():
 
     return dict()
+
+    
 def takeOrder():
     ds_cart = gluon.contrib.simplejson.loads(request.body.read())
     status=dict()
