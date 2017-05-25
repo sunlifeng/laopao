@@ -282,31 +282,7 @@ desired effect
       <!-- Sidebar Menu -->
 
       {{#=LOAD('message', 'menu.load', ajax=True, content='')}}
-      {{include 'menu.load'}}
-      <ul class="sidebar-menu hidden {{=hidden}}">
-        <li class="header">CATEGORIES</li>
-        <li class="treeview">
-          {{=sidebar_menu_item('Dogs', icon='circle-o')}}
-          <ul class="treeview-menu">
-            {{=sidebar_menu_item('View Dogs', URL('dog', 'list'), icon='list')}}
-            {{=sidebar_menu_item('Create Dog', URL('dog', 'create'), icon='pencil-square-o')}}
-          </ul>
-        </li>
-        <li class="treeview">
-          {{=sidebar_menu_item('Dog Lovers', icon='circle-o')}}
-          <ul class="treeview-menu">
-            {{=sidebar_menu_item('View Dog Lovers', URL('person', 'list'), icon='list')}}
-            {{=sidebar_menu_item('Create Dog Lover', URL('person', 'create'), icon='pencil-square-o')}}
-          </ul>
-        </li>
-        <li class="treeview">
-          {{=sidebar_menu_item('Dog Owner', icon='circle-o')}}
-          <ul class="treeview-menu">
-            {{=sidebar_menu_item('View Dog Owners', URL('dog_owner', 'list'), icon='list')}}
-            {{=sidebar_menu_item('Create Dog Owner', URL('dog_owner', 'create'), icon='pencil-square-o')}}
-          </ul>
-        </li>
-      </ul>
+      {{include 'menu.load'}}      
 
       <ul class="sidebar-menu">
         <li class="header">老炮吧</li>
@@ -343,7 +319,7 @@ desired effect
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
-        <strong>Holy guacamole!</strong> {{=response.flash}}
+        <strong> {{=response.flash}}</strong>
       </div>
     </section>
     {{pass}}

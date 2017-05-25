@@ -153,8 +153,20 @@ def pay():
         redirect(URL('pay_error'))
     return dict(stripe_form=stripe_form)
 
+def about():
+    return dict()
+
+def privacy():
+    redirect(URL("about"))
+def tou():
+    redirect(URL("about"))
+    
+def function():
+    pass
+
 def ship():
     return locals()
+
 
 def thank_you():
     return locals()
