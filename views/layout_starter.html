@@ -250,16 +250,15 @@ desired effect
 
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel {{=hidden}}">
         <div class="pull-left image">
-          <img src="{{=URL('static','img/avatar5.png')}}" class="img-circle" alt="User Image">
+          <img src="{{=URL('static','img/avatar5.png')}}" class="img-circle " alt="User Image">
         </div>
         <div class="pull-left info">
           <p>
             {{if auth.user:}}
-              {{=auth.user.first_name}} {{=auth.user.last_name}}
+              {{=auth.user.first_name}} {{#=auth.user.last_name}}
             {{pass}}
           </p>
           <!-- Status -->
@@ -269,7 +268,7 @@ desired effect
       <!--  /sidebar user panel -->
 
       <!-- search form (Optional) -->
-      <form action="{{=URL('default', 'search')}}" method="get" class="sidebar-form {{=hidden}}">
+      <form action="{{=URL('default', 'search')}}" method="get" class="sidebar-form hidden {{=hidden}}">
         <div class="input-group">
           <input type="text" name="q" class="form-control" placeholder="Search...">
               <span class="input-group-btn">
@@ -284,7 +283,7 @@ desired effect
 
       {{#=LOAD('message', 'menu.load', ajax=True, content='')}}
       {{include 'menu.load'}}
-      <ul class="sidebar-menu {{=hidden}}">
+      <ul class="sidebar-menu hidden {{=hidden}}">
         <li class="header">CATEGORIES</li>
         <li class="treeview">
           {{=sidebar_menu_item('Dogs', icon='circle-o')}}

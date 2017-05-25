@@ -1,35 +1,39 @@
-      {{=MENU(response.menu,_class="sidebar-menu",ul_class="treeview",li_class="treeview")}}
-
-      <ul class="sidebar-menu">
-        <li class="header">菜单</li>
-        <li class="treeview">
-      {{=LOAD('default','cart/show',vars=dict(editable=request.function!='pay'),ajax=True,target='cart')}}
+      {{#=MENU(response.menu,_class="sidebar-menu",ul_class="treeview",li_class="treeview")}}      
+      
       {{if request.function=='showroom':}}
-      <a href="{{=URL('checkout')}}" class="btn btn-primary">付款</a>
-      {{pass}}
+      <ul class="sidebar-menu">
+      
+        <li class="header">菜单</li>
+          <li class="treeview">
+            {{=LOAD('default','cart/show',vars=dict(editable=request.function!='pay'),ajax=True,target='cart')}}
+            <a href="{{=URL('checkout')}}" class="btn btn-primary">付款</a>
+          </li>
       </li>
+
       </ul>
+      {{pass}}
+
+      
       <ul class="sidebar-menu {{=hidden}}">
         <li class="header">菜单</li>
-
         <li class="treeview">
-          {{=sidebar_menu_item('Dogs', icon='circle-o')}}
+          {{=sidebar_menu_item('产品管理', icon='circle-o')}}
           <ul class="treeview-menu">
-            {{=sidebar_menu_item('View Dogs', URL('dog', 'list'), icon='list')}}
-            {{=sidebar_menu_item('Create Dog', URL('dog', 'create'), icon='pencil-square-o')}}
+            {{=sidebar_menu_item('产品管理', URL('default', 'manage_products'), icon='list')}}
+            {{=sidebar_menu_item('库存管理', URL('default', 'manage_inventory'), icon='pencil-square-o')}}
           </ul>
         </li>
         <li class="treeview">
-          {{=sidebar_menu_item('Dog Lovers', icon='circle-o')}}
+          {{=sidebar_menu_item('系统管理', icon='circle-o')}}
           <ul class="treeview-menu">
-            {{=sidebar_menu_item('View Dog Lovers', URL('person', 'list'), icon='list')}}
-            {{=sidebar_menu_item('Create Dog Lover', URL('person', 'create'), icon='pencil-square-o')}}
+            {{=sidebar_menu_item('用户', URL('default', 'manage_user'), icon='list')}}
+            {{=sidebar_menu_item('用户组', URL('default', 'manage_group'), icon='pencil-square-o')}}
           </ul>
         </li>
         <li class="treeview">
-          {{=sidebar_menu_item('Dog Owner', icon='circle-o')}}
+          {{=sidebar_menu_item('订单', icon='circle-o')}}
           <ul class="treeview-menu">
-            {{=sidebar_menu_item('View Dog Owners', URL('dog_owner', 'list'), icon='list')}}
+            {{=sidebar_menu_item('察看订单', URL('dog_owner', 'list'), icon='list')}}
             {{=sidebar_menu_item('Create Dog Owner', URL('dog_owner', 'create'), icon='pencil-square-o')}}
           </ul>
         </li>
