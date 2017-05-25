@@ -2349,3 +2349,9 @@ success!
 success!
 success!
 success!
+success!
+timestamp: 2017-05-25T19:36:02.596000
+ALTER TABLE cart_order ADD custom INTEGER REFERENCES custom (id) ON DELETE CASCADE  ;
+success!
+success!
+success!
