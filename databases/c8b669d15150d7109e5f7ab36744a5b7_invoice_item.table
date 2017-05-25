@@ -299,15 +299,15 @@ sg9
 I00
 sg10
 g11
-ssS'serial_code'
+ssS'is_digital'
 p81
 (dp82
 S'sortable'
 p83
-L8L
+L16L
 sS'sql'
 p84
-S'CHAR(512)'
+S'CHAR(1)'
 p85
 sS'length'
 p86
@@ -320,7 +320,7 @@ p88
 L0L
 sS'type'
 p89
-S'string'
+S'boolean'
 p90
 ssS'inventory'
 p91
@@ -601,15 +601,15 @@ I00
 sg10
 S'reference shipping'
 p148
-ssS'is_digital'
+ssS'serial_code'
 p149
 (dp150
 S'sortable'
 p151
-L16L
+L8L
 sS'sql'
 p152
-S'CHAR(1)'
+S'CHAR(512)'
 p153
 sS'length'
 p154
@@ -622,7 +622,7 @@ p156
 L0L
 sS'type'
 p157
-S'boolean'
+S'string'
 p158
 ssS'quantity'
 p159

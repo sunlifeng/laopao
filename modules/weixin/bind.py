@@ -2,14 +2,7 @@
 # !/usr/bin/env python
 from __future__ import unicode_literals
 
-"""
-File:   bind.py
-Author: goodspeed
-Email:  cacique1103@gmail.com
-Github: https://github.com/zongxiao
-Date:   2015-02-12
-Description: WeixinAPI bind
-"""
+
 
 import re
 import six

@@ -2,14 +2,7 @@
 # !/usr/bin/env python
 from __future__ import unicode_literals
 
-"""
-File:   client.py
-Author: goodspeed
-Email:  cacique1103@gmail.com
-Github: https://github.com/zongxiao
-Date:   2015-02-11
-Description: Weixin helpers
-"""
+
 
 import sys
 import datetime

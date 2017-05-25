@@ -1,27 +1,45 @@
 # coding: utf8
 
 import gluon.contrib.simplejson
+
 from weixin.client import WeixinAPI
+from weixin.client import WeixinMpAPI
 from weixin.oauth2 import OAuth2AuthExchangeError
 
 from weixin.client import WeixinAPI
 from weixin.oauth2 import OAuth2AuthExchangeError
 
 def index():
-
     APP_ID = 'test'
     APP_SECRET = 'test'
     REDIRECT_URI = 'http://localhost.com/authorization'
+    scope = ("snsapi_base", )
+    code="temp"
+    api = WeixinMpAPI(appid=APP_ID,
+                      app_secret=APP_SECRET,
+                      redirect_uri=REDIRECT_URI)
+
+    authorize_url = api.get_authorize_url(scope=scope)
+    
+    access_token = api.exchange_code_for_access_token(code=code)
+    api = WeixinMpAPI(access_token=access_token)
+    user = api.user(openid="openid")
 
     table_id=request.vars.table_id
-    return dict(table_id=table_id,message="hello from angular")
+
+    return dict(table_id=table_id,message="hello from angular",redirect_uri=redirect_uri,user=user)
 
 def pay():
 
     return dict()
 def takeOrder():
-    new_recipe = gluon.contrib.simplejson.loads(request.body.read())
-    return new_recipe
+    ds_cart = gluon.contrib.simplejson.loads(request.body.read())
+    status=dict()
+    lista=list()
+    status["result"]=1
+    status["return"]=gluon.contrib.simplejson.dumps(ds_cart)
+
+    return gluon.contrib.simplejson.dumps(status)
 
 def openuser():
     return dict()

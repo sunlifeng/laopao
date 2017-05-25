@@ -33,8 +33,9 @@
         <li class="treeview">
           {{=sidebar_menu_item('订单', icon='circle-o')}}
           <ul class="treeview-menu">
-            {{=sidebar_menu_item('察看订单', URL('dog_owner', 'list'), icon='list')}}
-            {{=sidebar_menu_item('Create Dog Owner', URL('dog_owner', 'create'), icon='pencil-square-o')}}
+            {{=sidebar_menu_item('察看订单', URL('default', 'manage_order'), icon='list')}}
+            {{=sidebar_menu_item('产看成交', URL('default', 'manage_invoice'), icon='pencil-square-o')}}
+            {{=sidebar_menu_item('察看客户', URL('default', 'manage_custom'), icon='pencil-square-o')}}
           </ul>
         </li>
       </ul>

@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-'''
-Created on 2016-05-01
-微信接口
-@author: zongxiao
-'''
 
 import time
 import string

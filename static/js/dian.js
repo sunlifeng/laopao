@@ -776,10 +776,12 @@ dianshi.controller('pao',function($scope,$http,dsfunc,$timeout){
     //点餐提交
     $scope.dian_submit=function(){
         if($scope.glb_submit_status==1 && ds_cart.length > 0){
-            var str=JSON.stringify(ds_cart);
+            //var str=JSON.stringify(ds_cart);
+            str=ds_cart;
             console.log(str);
             $scope.glb_submit_status=0;
-            $http.post(url_submit,{"cart":str}, postCfg).success(function(obj){
+            $http.put(url_submit,{"cart":str}).success(function(obj){
+            //$http.post(url_submit,{"cart":str}, postCfg).success(function(obj){
                 console.log(obj);
                 if (obj.result=="1"){
                     if(is_waiter){

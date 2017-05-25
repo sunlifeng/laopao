@@ -1,14 +1,6 @@
 # -*-coding: utf-8 -*-
 from __future__ import unicode_literals
 
-"""
-File:   client.py
-Author: goodspeed
-Email:  cacique1103@gmail.com
-Github: https://github.com/zongxiao
-Date:   2015-02-06
-Description: Weixin OAuth2
-"""
 
 from . import oauth2
 from .bind import bind_method

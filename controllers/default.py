@@ -20,6 +20,14 @@ def manage_group():
     grid = SQLFORM.grid(db.auth_group)
     return locals()
 
+def manage_order():
+    grid = SQLFORM.grid(db.cart_order)
+    return locals()    
+
+def manage_custom():
+    grid = SQLFORM.grid(db.custom)
+    return locals()
+
 @auth.requires_membership('manager')
 def index():    
     #redirect(URL('showroom'))
