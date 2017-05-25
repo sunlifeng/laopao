@@ -25,7 +25,6 @@ def index():
     #redirect(URL('showroom'))
     return locals()
 
-
 def test():
     return locals()
 

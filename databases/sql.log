@@ -816,6 +816,7 @@ success!
 success!
 success!
 success!
+<<<<<<< Updated upstream
 timestamp: 2017-05-24T20:07:33.325000
 ALTER TABLE auth_user ADD username CHAR(128);
 success!
@@ -2230,6 +2231,8 @@ success!
 success!
 success!
 success!
+=======
+>>>>>>> Stashed changes
 success!
 success!
 success!
@@ -2320,6 +2323,11 @@ success!
 success!
 success!
 success!
+<<<<<<< Updated upstream
+=======
+timestamp: 2017-05-24T15:37:32.713000
+ALTER TABLE auth_user ADD username CHAR(128);
+>>>>>>> Stashed changes
 success!
 success!
 success!
