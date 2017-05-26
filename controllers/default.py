@@ -38,7 +38,7 @@ def index():
 
 
 def qrcode():
-    qrcode_url=request.args.qrcode_url    
+    qrcode_url=request.vars.qrcode_url    
     return dict(qrcode_url=qrcode_url)
 
 
