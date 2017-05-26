@@ -1,0 +1,15 @@
+{{extend 'layout_starter.html'}}
+<script type="text/javascript">
+function input (argument) {
+    var temp_url='{{=URL('angularjs','index',scheme=True, host=True)}}'+'?table_id=';
+    temp_url=temp_url+document.getElementById("url").value;
+    new QRCode(document.getElementById("qrcode"), temp_url); 
+}
+</script>
+<input id="url">
+<button onclick="input()">生成二维码</button> 
+<div id="qrcode"></div>
+<div> <span>  输入生成做号使用数字1，2，3，4 代表桌好</span> </div>
+<script type="text/javascript">
+//new QRCode(document.getElementById("qrcode"), "{{=qrcode_url}}");
+</script>

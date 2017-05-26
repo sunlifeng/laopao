@@ -22,6 +22,7 @@
             {{=sidebar_menu_item('产品管理', URL('default', 'manage_products'), icon='list')}}
             {{=sidebar_menu_item('库存管理', URL('default', 'manage_inventory'), icon='pencil-square-o')}}
             {{=sidebar_menu_item('餐桌管理', URL('default', 'manage_desk'), icon='list')}}
+            {{=sidebar_menu_item('生成餐桌二维码', URL('default', 'qrcode'), icon='list')}}
           </ul>
         </li>
         <li class="treeview">

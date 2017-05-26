@@ -9,26 +9,37 @@ from weixin.oauth2 import OAuth2AuthExchangeError
 from weixin.client import WeixinAPI
 from weixin.oauth2 import OAuth2AuthExchangeError
 
-def index():
-    APP_ID = 'wxb4489b6db9018223'
-    APP_SECRET = '8d2e1e250ae33b0160e89705a53e9251'
-    REDIRECT_URI = 'http://localhost.com/authorization'
-    scope = ("snsapi_base", )
-    code="temp"
-    api = WeixinMpAPI(appid=APP_ID,
-                      app_secret=APP_SECRET,
-                      redirect_uri=REDIRECT_URI)
 
-    authorize_url = api.get_authorize_url(scope=scope)
 
-    access_token = api.exchange_code_for_access_token(code=code)
-    api = WeixinMpAPI(access_token=access_token)
+APP_ID = 'test'
+APP_SECRET = 'test'
+REDIRECT_URI = 'http://localhost.com/authorization'
 
-    user = api.user(openid="openid")
 
+def index(): 
     table_id=request.vars.table_id
-
     return dict(table_id=table_id,message="hello from angular",redirect_uri=redirect_uri,user=user)
+
+
+def authorization():
+    code = request.vars.code
+    api = WeixinAPI(appid=APP_ID,
+                    app_secret=APP_SECRET,
+                    redirect_uri=REDIRECT_URI)
+    auth_info = api.exchange_code_for_access_token(code=code)
+    api = WeixinAPI(access_token=auth_info['access_token'])
+    resp = api.user(openid=auth_info['openid'])
+    return locals()
+
+
+def weixinlogin():
+    api = WeixinAPI(appid=APP_ID,
+                    app_secret=APP_SECRET,
+                    redirect_uri=REDIRECT_URI)
+    authorize_url = api.get_authorize_url(scope=("snsapi_base",))
+    #redirect_uri = api.get_authorize_login_url(scope=("snsapi_login",))
+    return redirect(redirect_uri)
+
 
 def pay():
 
