@@ -35,10 +35,10 @@ routers = {
 
 
 routes_in = (
-  ('MP_verify_SugsT2VkaJ2MKyPl.txt', '/laopao/static/MP_verify_SugsT2VkaJ2MKyPl.txt'),
+  ('/laopao/MP_verify_SugsT2VkaJ2MKyPl.txt', '/laopao/static/MP_verify_SugsT2VkaJ2MKyPl.txt'),
 )
 routes_out = (
-  ('/laopao/static/MP_verify_SugsT2VkaJ2MKyPl.txt', 'MP_verify_SugsT2VkaJ2MKyPl.txt'),
+  ('/laopao/static/MP_verify_SugsT2VkaJ2MKyPl.txt', '/laopao/MP_verify_SugsT2VkaJ2MKyPl.txt'),
 )
 
 

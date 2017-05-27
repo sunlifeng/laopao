@@ -3910,3 +3910,9 @@ success!
 success!
 success!
 success!
+timestamp: 2017-05-27T20:08:07.791000
+CREATE TABLE desk(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    deskid INTEGER,
+    name CHAR(512)
+);
