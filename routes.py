@@ -33,6 +33,15 @@ routers = {
     )
 }
 
+
+routes_in = (
+  ('MP_verify_SugsT2VkaJ2MKyPl.txt', '/laopao/static/MP_verify_SugsT2VkaJ2MKyPl.txt'),
+)
+routes_out = (
+  ('/laopao/static/MP_verify_SugsT2VkaJ2MKyPl.txt', 'MP_verify_SugsT2VkaJ2MKyPl.txt'),
+)
+
+
 #NOTE! To change language in your application using these rules add this line
 #in one of your models files:
 #   if request.uri_language: T.force(request.uri_language)
