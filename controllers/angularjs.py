@@ -18,7 +18,7 @@ REDIRECT_URI = 'http://localhost.com/authorization'
 
 def index(): 
     table_id=request.vars.table_id
-    return dict(table_id=table_id,message="hello from angular",redirect_uri=redirect_uri,user=user)
+    return dict(table_id=table_id,message="hello from angular")
 
 
 def authorization():
@@ -38,7 +38,7 @@ def weixinlogin():
                     redirect_uri=REDIRECT_URI)
     authorize_url = api.get_authorize_url(scope=("snsapi_base",))
     #redirect_uri = api.get_authorize_login_url(scope=("snsapi_login",))
-    return redirect(redirect_uri)
+    return redirect(authorize_url)
 
 
 def pay():
